@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<!--=====================================-->
+        <!--=       Breadcrumb Area Start       =-->
+        <!--=====================================-->
+        <div class="breadcrum-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul class="list-unstyled">
+                        <li><a href="index-1.html">Home</a></li>
+                        <li class="active">Blog</li>
+                    </ul>
+                    <h1 class="title h2">Blog</h1>
+                </div>
+            </div>
+            <ul class="shape-group-8 list-unstyled">
+                <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100"><img src="{% static 'assets/media/others/bubble-9.png' %}" alt="Bubble"></li>
+                <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"><img src="{% static 'assets/media/others/bubble-10.png' %}" alt="Bubble"></li>
+                <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"><img src="{% static 'assets/media/others/line-4.png' %}" alt="Line"></li>
+            </ul>
+        </div>
+        <!--=====================================-->
+        <!--=        Blog Area Start       	    =-->
+        <!--=====================================-->
+        <section class="section-padding-equal">
+            <div class="container">
+                <div class="row row-40">
+                    <div class="col-lg-8">
+                        {% for blog in blogs %}
+                        <div class="blog-grid">
+                            <h3 class="title"><a href="">{{blog.title}}</a></h3>
+                            <div class="author">
+                                <div class="author-thumb">
+                                    <img class = 'rounded-circle border border-dark' src="{{blog.author.avatar.url}}" width = '80px' alt="Blog Author">
+                                </div>
+                                <div class="info">
+                                    <h6 class="author-name">{{blog.author.username}}</h6>
+                                    <ul class="blog-meta list-unstyled">
+                                        <li>{{blog.created_at|timesince}}</li>
+                                        <li>9 min to read</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="post-thumbnail">                                
+                                <a href="{% url 'blog_detail' blog.category.slug blog.slug %}"><img src="{{blog.image.url}}" alt="Blog"></a>
+                            </div>                            
+                            <p>{{blog.description|safe|truncatechars_html:100}}</p>                                                         
+                            <a href="{% url 'blog_detail' blog.category.slug blog.slug %}" class="axil-btn btn-borderd btn-large">Read More</a>
+                            {% if blog.author == request.user %}
+                            <a href="{% url 'update_blog' blog.slug %}" class="axil-btn btn-borderd btn-large">Edit</a>
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                            <h1> There is no blog </h1>
+                        {% endfor %}
+                        {% comment %} <div class="blog-grid blog-without-thumb">
+                            <h3 class="title"><a href="single-blog.html">Twice Profit Than Before You Ever Got</a></h3>
+                            <div class="author">
+                                <div class="info">
+                                    <h6 class="author-name">Theresa Underwood</h6>
+                                    <ul class="blog-meta list-unstyled">
+                                        <li>Sep 9, 2021</li>
+                                        <li>15 min to read</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                        
+                       
+
+                        {% comment %} PAGINATOR {% endcomment %}
+                        <div class="pagination">
+                            <span class="step-links">
+                                <ul>
+                                                          
+                                {% comment %} <li><a class="prev page-numbers" {% if blogs.has_previous %} href="?page=1" {% else %} href = ""{% endif %}><<<i ></i></a></li> {% endcomment %}
+                                <li><a class="prev page-numbers" {% if blogs.has_previous %} href="?page={{ blogs.previous_page_number }}" {% else %} href = ""{% endif %}><i ><</i></a></li>
+                                                                 
+                                
+                                    {% if range|length > 5 %}
+                                    {% for num in range  %}
+                                        {% if num <= page|add:2 and num >= page|sub:2 %}
+                                        <li><a href="?page={{num}}" class="page-numbers {% if num == page %}current{% endif %}">{{num}}</a></li> 
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                        {% for num in range  %}
+                                        <li><a href="?page={{num}}" class="page-numbers {% if num == page %}current{% endif %}">{{num}}</a></li> 
+                                        {% endfor %}
+                                    {% endif %}
+                             
+                                                            
+                                <li><a class="prev page-numbers" {% if blogs.has_next  %} href="?page={{ blogs.next_page_number }}" {% else %} href = ""{% endif %}>><i ></i></a></li>
+                                {% comment %} <li><a class="prev page-numbers" {% if blogs.has_next  %} href="?page={{ blogs.paginator.num_pages }}"{% else %} href = ""{% endif %}><i >>></i></a></li> {% endcomment %}
+                                
+                            </ul>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="axil-sidebar">
+                            <div class="widget widget-search">
+                                <h4 class="widget-title">Search</h4>
+                                <form action="{% url 'blog_page' %}" class="blog-search" >                                    
+                                    <input type="text" placeholder="Search…" name = "search">
+                                    <button type='submit' class="search-button"><i class="fal fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="widget widget-categories">
+                                <h4 class="widget-title">Categories</h4>
+                                {% for category in categories %}
+                                <ul class="category-list list-unstyled">
+                                    <li><a class="current" href="{% url 'blog_category' category.slug %}">{{category.title|title}}</a></li>                                    
+                                </ul>
+                                {% endfor %}
+                            </div>
+                            <div class="widget widge-social-share">
+                                <div class="blog-share">
+                                    <h5 class="title">Follow:</h5>
+                                    <ul class="social-list list-unstyled">
+                                        <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a></li>
+                                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="widget widget-recent-post">
+                                <h4 class="widget-title">Recent post</h4><hr>
+                                <div class="post-list-wrap">
+                                    {% for blog in recentblogs  %}
+                                    <div class="single-post">                                        
+                                        <div class="post-thumbnail">
+                                            <h6 class="title"><a href="single-blog.html">{{blog.title}}</a></h6>
+                                            <a href="single-blog.html"><img src="{{blog.image.url}}" width='50%' alt="Blog"></a>
+                                            <li>{{blog.created_at}}</li>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                   
+                                </div>
+                            </div>
+                            <div class="widget widget-banner-ad">
+                                <a href="#">
+                                    <img src="{% static 'assets/media/banner/widget-banner.png' %}" alt="banner">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=     Call To Action Area Start     =-->
+        <!--=====================================-->
+        <section class="section call-to-action-area">
+            <div class="container">
+                <div class="call-to-action">
+                    <div class="section-heading heading-light">
+                        <span class="subtitle">Let's Work Together</span>
+                        <h2 class="title">Need a successful project?</h2>
+                        <a href="contact.html" class="axil-btn btn-large btn-fill-white">Estimate Project</a>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="larg-thumb" data-sal="zoom-in" data-sal-duration="600" data-sal-delay="100">
+                            <img class="paralax-image" src="{% static 'assets/media/others/chat-group.png' %}" alt="Chat">
+                        </div>
+                        <ul class="list-unstyled small-thumb">
+                            <li class="shape shape-1" data-sal="slide-right" data-sal-duration="800" data-sal-delay="400">
+                                <img class="paralax-image" src="{% static 'assets/media/others/laptop-poses.png' %}" alt="Laptop">
+                            </li>
+                            <li class="shape shape-2" data-sal="slide-left" data-sal-duration="800" data-sal-delay="300">
+                                <img class="paralax-image" src="{% static 'assets/media/others/bill-pay.png' %}" alt="Bill">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-unstyled shape-group-9">
+                <li class="shape shape-1"><img src="{% static 'assets/media/others/bubble-12.png' %}" alt="Comments"></li>
+                <li class="shape shape-2"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
+                <li class="shape shape-3"><img src="{% static 'assets/media/others/bubble-13.png' %}" alt="Comments"></li>
+                <li class="shape shape-4"><img src="{% static 'assets/media/others/bubble-14.png' %}" alt="Comments"></li>
+                <li class="shape shape-5"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
+                <li class="shape shape-6"><img src="{% static 'assets/media/others/bubble-15.png' %}" alt="Comments"></li>
+                <li class="shape shape-7"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
+            </ul>
+        </section>
+     
+
+
+
+
+    </div>
+
+
+{% endblock  %}

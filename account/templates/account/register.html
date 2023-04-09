@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/register.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2>Registration</h2>
+    <h6>Do you have an account? <a href="{% url 'login' %}" class="more-btn" style ="text-decoration:none"> Login here!</a></h6>
+   
+    <form action="" method="POST">
+      {% csrf_token %}    
+      {% for f in form  %}
+        {% if f.errors %}
+        <div class="alert alert-danger" role="alert">
+          {{f.errors}}
+        </div>        
+        {% endif %}
+      {% endfor %} 
+      {% if error %}
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+      {% endif %}
+      {% for f in form  %}
+        <div class="input-box">
+          {{f}}
+        </div>
+      {% endfor %}
+      <div class="input-box button">
+        <input type="Submit" value="Register Now">
+      </div>
+      
+        </form>
+  </div>
+</body>
+</html>

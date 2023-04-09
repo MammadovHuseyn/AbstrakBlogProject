@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/register.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">  
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.css' %}">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2>Login</h2>
+    <h6>Don't have an account? <a href="{% url 'register' %}" class="more-btn" style ="text-decoration:none"> Register Now!</a></h6>
+
+    <form action="{% url 'login' %}" method = "POST">
+      {% csrf_token %}
+      {% if error %}
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+      {% endif %}
+      
+      {% for f in form  %}
+      <div class="input-box">
+        {{f}}
+      </div>
+      {% endfor %}
+ 
+      <div class="input-box button">
+        <input type="Submit" value="Login Now">
+      </div>
+      <a class="" href="{% url 'social:begin' 'google-oauth2' %}">
+        <i class="fa fa-google" aria-hidden="true"></i> Log in with Google
+
+      </a>
+      <a href="{% url 'social:begin' 'facebook' %}"> Log in with Facebook </a>
+      </form>
+  </div>
+</body>
+</html>
+
+
+
+
+
