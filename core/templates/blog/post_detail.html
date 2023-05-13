@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <a href="#main-wrapper" id="backto-top" class="back-to-top">
+        <i class="far fa-angle-double-up"></i>
+    </a>
+
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+
+    <div class="my_switcher d-none d-lg-block">
+        <ul>
+            <li title="Light Mode">
+                <a href="javascript:void(0)" class="setColor light" data-theme="light">
+                    <i class="fal fa-lightbulb-on"></i>
+                </a>
+            </li>
+            <li title="Dark Mode">
+                <a href="javascript:void(0)" class="setColor dark" data-theme="dark">
+                    <i class="fas fa-moon"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="main-wrapper" class="main-wrapper">
+        <!--=====================================-->
+        <!--=       Breadcrumb Area Start       =-->
+        <!--=====================================-->
+        <div class="breadcrum-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul class="list-unstyled">
+                        <li><a href="index-1.html">Home</a></li>
+                        <li class="active">Post</li>
+                    </ul>
+                    <h1 class="title h2">{{post.title}}</h1>
+                </div>
+            </div>
+            <ul class="shape-group-8 list-unstyled">
+                <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100"><img src={% static "assets/media/others/bubble-9.png" %} alt="Bubble"></li>
+                <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"><img src={% static "assets/media/others/bubble-11.png" %} alt="Bubble"></li>
+                <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"><img src={% static "assets/media/others/line-4.png" %} alt="Line"></li>
+            </ul>
+        </div>
+        <!--=====================================-->
+        <!--=        Blog Area Start       	    =-->
+        <!--=====================================-->
+        <section class="section-padding-equal">
+            <div class="container">
+                
+                    <div class="col-lg-12">
+                        <div class="single-blog">
+                            <div class="single-blog-content blog-grid">
+                                <div class="author">
+                                    <div class="author-thumb">
+                                       <a href="{% url 'profile' post.author.username %}"> <img  class='rounded-circle border border-light' src="{{post.author.avatar.url}}" width = '80px' alt="Blog Author"></a>
+                                    </div>
+                                    <div class="info">
+                                        <h6 class="author-name">{{post.author.username}}</h6>
+                                        <ul class="blog-meta list-unstyled">
+                                            <li>{{post.created_at | date:"d/m/Y"}}</li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% if post.image %}
+                                <div class="post">
+                                    
+                                    <img src={{post.image.url}} alt="Blog">
+                                </div>
+                                {% endif %}
+                               
+                                <p>{{post.description|safe}}</p>
+                               
+                            </div>
+
+                            <div class="blog-comment">
+                                <h3 class="section-title">Comments:</h3>
+                                <div class="comment-list">
+                                    {% for comment in comments  %}
+                                    <!-- Start Single Comment  -->
+                                    <div class="comment" >
+                                        <div class="thumbnail">
+                                            <img class='rounded-circle border border-light' src={{comment.writer.avatar.url}} alt="Blog Comment">
+                                        </div>
+                                        <div class="content">
+                                            <div class="heading">
+                                                <h5 class="title">{{comment.writer.username}}</h5>
+                                                <div class="comment-date" data-comment-id = "{{comment.id}}">
+                                                    {% if comment.writer == request.user %}
+                                                    <button class="btn deletebtn"  href=""><i class="fa-thin fa-x"></i></button>
+                                                    {% endif %}
+                                                    <p>{{comment.created_at|timesince}}</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <p>{{comment.comment_text}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- End Single Comment  -->
+                                </div>
+                            </div>
+                            <div class="blog-comment-form">
+                                {% if user.is_authenticated %}
+                                <h5>Leave Comment</h5>
+                                    <input type="hidden" id="writer" value = {{request.user.id}} >
+                                    <input type="hidden" id="writername" value = {{request.user}}>
+                                    <input type="hidden" id="writerphoto" value = {{request.user.avatar.url}}>
+                                    <input type="hidden" id="post" value = {{post.id}} >
+                                    <textarea style = "resize:none;" name="message" id="message" class="form-control textarea" cols="5" rows="2" placeholder="Enter Comment"></textarea>
+                                    <div class="form-group mt-3">
+                                        <button id = "commentSubmit" type="submit" class="axil-btn btn-fill-primary btn-fluid" name="submit-btn">Submit Now</button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                 
+                
+            </div>
+        </section>
+
+
+        <script>
+            SubsciberLogic = {
+                CommentManager(writer , post ,comment_text) {
+                    fetch('/api/postcomment/', {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            'writer' : writer ,
+                            'post' : post,
+                            'comment_text': comment_text ,
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            subscribeModalLongTitle = document.getElementById('subscribeModalLongTitle');
+                            commentinput.value = '';
+
+                            const yorumListesi = document.querySelector('.comment-list');
+                            const yorumDiv = document.createElement('div');
+                            yorumDiv.classList.add('comment');
+                            yorumDiv.innerHTML = `
+                              <div class="thumbnail">
+                                <img class="rounded-circle border border-dark" src='${writerphoto}' alt="Blog Comment">
+                              </div>
+                              <div class="content">
+                                <div class="heading">
+                                  <h5 class="title">${writername}</h5>
+                                  <div class="comment-date">
+                                    <button class="btn deletebtn"  href=""><i class="fa-thin fa-x"></i></button>
+                                    <p>Just Now</p>
+                                    
+                                  </div>
+                                </div>
+                                <p>${comment_text}</p>
+                              </div>
+                            `;
+                            yorumListesi.appendChild(yorumDiv);
+
+                        });
+                }
+            }
+        
+            commentbutton = document.getElementById('commentSubmit')
+
+            commentinput = document.getElementById('message')
+            writerinput = document.getElementById('writer')
+            writernameinput = document.getElementById('writername')
+            writerphotoinput = document.getElementById('writerphoto')
+            postinput = document.getElementById('post')
+
+            commentbutton.onclick = function (e) {
+                e.preventDefault();
+                comment_text = commentinput.value;
+                writer = writerinput.value;
+                post = postinput.value;
+                writername = writernameinput.value;
+                writerphoto = writerphotoinput.value;
+
+                console.log(comment_text , writer , post);
+
+                SubsciberLogic.CommentManager(writer, post , comment_text);
+            }
+            
+
+            const deleteButtons = document.querySelectorAll('.deletebtn');
+            deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const commentElement = this.parentNode.parentNode.parentNode.parentNode;
+                const commentId = this.parentNode.getAttribute('data-comment-id');
+                
+                
+                if (confirm(`Are you sure you want to delete the comment?`)) {
+                console.log(commentElement , commentId )
+
+                deleteComment(commentId, commentElement);
+                }
+            });
+            });
+            function deleteComment(commentId , commentElement) {
+                fetch('/api/post/comment/delete/' + commentId, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+
+                  },
+                })
+                .then(response => {
+                  if (response.ok) {
+                    console.log('Comment deleted successfully')                  
+                    commentElement.remove();
+
+                    
+                  } else {
+                    console.error('Comment not deleted successfully');
+                  }
+                })
+                .catch(error => {
+                  console.error('Comment not deleted', error);
+                });
+              }
+
+        </script>
+        {% endblock  %}

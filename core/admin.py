@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog , Category , Comments , Contact , Settings
+from .models import Blog , Post, Category , Comments , Contact , Settings , PostComments  , Services ,Services_category , Subscription
 from modeltranslation.admin import TranslationAdmin
 # Register your models here.
 
@@ -9,11 +9,24 @@ class BlogAdmin(TranslationAdmin):
     list_filter = ('title' , )
 admin.site.register(Blog , BlogAdmin)
 
+class ServiceAdmin(TranslationAdmin):
+    list_display = ("title", "category" )
+    # list_filter = (, )
+admin.site.register(Services , ServiceAdmin)
+
+class ServiceCategoryAdmin(TranslationAdmin):
+    list_display = ("title",)
+admin.site.register(Services_category , ServiceCategoryAdmin)
+
+
+admin.site.register(Subscription)
 
 class CategoryAdmin(TranslationAdmin):
     list_display = ('title' , 'slug' ,)
 admin.site.register(Category , CategoryAdmin)
 
+admin.site.register(Post)
+admin.site.register(PostComments)
 
 @admin.register(Comments)
 class CommentsAdmin(admin.ModelAdmin):

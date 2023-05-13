@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+        <!--=====================================-->
+        <!--=       Breadcrumb Area Start       =-->
+        <!--=====================================-->
+        <div class="breadcrum-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul class="list-unstyled">
+                        <li><a href="index-1.html">{% trans 'Homepage' %}</a></li>
+                        <li class="active">{% trans 'Blog' %}</li>
+                    </ul>
+                    <h2 class="title h2">{{blog.title}}</h2>
+                    
+                </div>
+            </div>
+            <ul class="shape-group-8 list-unstyled">
+                <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100"><img src="{% static 'assets/media/others/bubble-9.png' %}" alt="Bubble"></li>
+                <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"><img src="{% static 'assets/media/others/bubble-11.png' %}" alt="Bubble"></li>
+                <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"><img src="{% static 'assets/media/others/line-4.png' %}" alt="Line"></li>
+            </ul>
+        </div>
+        <!--=====================================-->
+        <!--=        Blog Area Start       	    =-->
+        <!--=====================================-->
+        <section class="section-padding-equal">
+            <div class="container">
+                <div class="row row-40">
+                    <div class="col-lg-8">
+                        <div class="single-blog">
+                            <div class="single-blog-content blog-grid">
+                                <div class="author">
+                                    <div class="author-thumb">
+                                        <img class='rounded-circle border border-light' src="{{blog.author.avatar.url}}" width = '80px' alt="Blog Author">
+                                    </div>
+                                    <div class="info">
+                                        <h6 class="author-name">ABSTRAK</h6>
+                                        <ul class="blog-meta list-unstyled">
+                                            <li>{{blog.created_at | date:"d/m/Y"}}</li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h1 class="title h2">{{blog.title}}</h1>
+                                <div class="post-thumbnail">
+                                    <img src="{{blog.image.url}}" alt="Blog">
+                                </div>
+                           
+                                <p>
+                                    {{blog.description|safe}}
+                                </p>
+
+                                
+                            </div>
+
+                        s
+                            <div class="blog-comment">
+                                <h3 class="section-title">{% trans 'Comments' %}:</h3>
+                                <div class="comment-list">
+                                    <!-- Start Single Comment  -->
+                                    {% for comment in comments  %}
+                                    <div class="comment">
+                                        <div class="thumbnail">
+                                            <img class='rounded-circle border border-light' src="{{comment.writer.avatar.url}}"  alt="Blog Comment">
+                                        </div>
+                                        <div class="content">
+                                            <div class="heading">
+                                                <h5 class="title">{{comment.writer.username}}</h5>
+                                                <div class="comment-date" data-comment-id = "{{comment.id}}">
+                                                    {% if comment.writer == request.user %}
+                                                    <button class="btn deletebtn"  href=""><i class="fa-thin fa-x"></i></button>
+                                                    {% endif %}
+                                                    <p>{{comment.created_at|timesince}}</p>
+                                                </div>
+                                            </div>
+                                            <p>{{comment.comment_text}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- End Single Comment  -->
+                               
+                                    
+                                </div>
+                            </div>
+                            {% if user.is_authenticated %}
+                            <div class="blog-comment-form">
+                                <h3 class="title">{% trans 'Leave a comment' %}:</h3>
+                                <form action="" method = "POST">
+                                    {% csrf_token %}
+                                    <div class="row">                                        
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb--30">
+                                                <label>{% trans 'Enter Comment' %}: </label>
+                                                <textarea name="message" id="message" class="form-control textarea" cols="30" rows="4"></textarea>
+                                                <input type="hidden" id="writer" value = {{request.user.id}} >
+                                                <input type="hidden" id="blog" value = {{blog.id}} >
+                                                <input type="hidden" id="writername" value = {{request.user}}>
+                                                <input type="hidden" id="writerphoto" value = {{request.user.avatar.url}}>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
+                                                <button id = "commentSubmit" type="submit" class="axil-btn btn-fill-primary btn-fluid" name="submit-btn">Submit Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="axil-sidebar">
+                            <div class="widget widget-recent-post">
+                                <h4 class="widget-title">{% trans 'Recent Blogs' %}</h4>
+                                <div class="post-list-wrap">
+                                    {% for blog in recentblogs %}
+                                    
+                                    <div class="single-post">
+                                        <div class="post-thumbnail">
+                                            <h5 class="title"><a href="{% url 'blog_detail' blog.slug %}">{{blog.title|title}}</a></h5>
+                                            <a href="{% url 'blog_detail' blog.slug %}"><img class="img-fluid" src="{{blog.image.url}}" alt="Blog"></a>
+                                            <b>{{blog.created_at}}<b/>
+                                        </div>                                        
+                                    </div>
+                                    
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=       Recent Post Area Start      =-->
+        <!--=====================================-->
+        <section class="section section-padding-equal pt-0 related-blog-area">
+            <div class="container">
+                <div class="section-heading heading-left">
+                    <h3 class="title">{% trans 'Related Blogs' %}</h3>
+                </div>
+                <div class="slick-slider recent-post-slide" data-slick='{"infinite": true, "autoplay": true, "arrows": false, "dots": false, "slidesToShow": 2,
+        "responsive": [
+            {
+                "breakpoint": 1199,
+                "settings": {
+                    "slidesToShow": 1
+                }
+            }
+        ]
+        }'>        {% if related_blogs %}
+                    {% for blogs in related_blogs  %}
+                    {% if blogs != blog %}
+                    <div class="slick-slide">
+                        
+                        <div class="blog-list">
+                            <div class="post-thumbnail">
+                                <a href="{% url 'blog_detail' blogs.slug %}"><img src="{{blogs.image.url}}" width='200px' alt="Blog Post"></a>
+                            </div>   
+                            <div class="post-content">      
+                                <h5 class="title"><a href="{% url 'blog_detail' blogs.slug %}">{{blogs.title}}</a></h5>
+                                <p >{{blogs.description|safe|truncatechars_html:110}}</p>                     
+                                <a href="{% url 'blog_detail' blogs.slug %}" class="more-btn">{% trans 'Learn more' %}<i class="far fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                   
+                </div>
+            </div>
+        </section>
+                   
+                
+       
+       
+        <script>
+            SubsciberLogic = {
+                CommentManager(writer , blog ,comment_text) {
+                    fetch('/api/comment/', {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            'writer' : writer ,
+                            'blog' : blog,
+                            'comment_text': comment_text ,
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            subscribeModalLongTitle = document.getElementById('subscribeModalLongTitle');
+                            commentinput.value = '';
+
+                            const yorumListesi = document.querySelector('.comment-list');
+                            const yorumDiv = document.createElement('div');
+                            yorumDiv.classList.add('comment');
+                            yorumDiv.innerHTML = `
+                              <div class="thumbnail">
+                                <img class="rounded-circle border border-dark" src='${writerphoto}' alt="Blog Comment">
+                              </div>
+                              <div class="content">
+                                <div class="heading">
+                                  <h5 class="title">${writername}</h5>
+                                  <div class="comment-date">
+                                    
+                                    <button class="btn deletebtn"  href=""><i class="fa-thin fa-x"></i></button>
+                                    
+                                    <p>Just Now</p>
+                                    
+                                  </div>
+                                </div>
+                                <p>${comment_text}</p>
+                              </div>
+                            `;
+                            yorumListesi.appendChild(yorumDiv);
+
+                        });
+                }
+            }
+        
+            commentbutton = document.getElementById('commentSubmit')
+
+            commentinput = document.getElementById('message')
+            writerinput = document.getElementById('writer')
+            writerphotoinput = document.getElementById('writerphoto')
+            writernameinput = document.getElementById('writername')
+            bloginput = document.getElementById('blog')
+            
+            commentbutton.onclick = function (e) {
+                e.preventDefault();
+                comment_text = commentinput.value;
+                writer = writerinput.value;
+                blog = bloginput.value;
+                writername = writernameinput.value;
+                writerphoto = writerphotoinput.value;
+
+                console.log(comment_text , writer , blog);
+
+                SubsciberLogic.CommentManager(writer, blog , comment_text);
+            }
+        
+
+
+            const deleteButtons = document.querySelectorAll('.deletebtn');
+            deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const commentElement = this.parentNode.parentNode.parentNode.parentNode;
+                const commentId = this.parentNode.getAttribute('data-comment-id');
+                
+                
+                if (confirm(`Are you sure you want to delete the comment?`)) {
+                console.log(commentElement , commentId )
+
+                deleteComment(commentId, commentElement);
+                }
+            });
+            });
+            function deleteComment(commentId , commentElement) {
+                fetch('/api/comment/delete/' + commentId, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                  },
+                })
+                .then(response => {
+                  if (response.ok) {
+                    console.log('Yorum başarıyla silindi')                  
+                    commentElement.remove();
+
+                    
+                  } else {
+                    console.error('Yorum silinirken bir hata oluştu.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Yorum silinirken bir hata oluştu:', error);
+                });
+              }
+        </script>
+
+        {% endblock %}

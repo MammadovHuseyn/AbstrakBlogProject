@@ -28,23 +28,26 @@
                                     </div>
                                 </div>
                                 <ul class="mainmenu">
-                                    <li><a href="{% url 'home_page' %}">{% trans 'Homepage' %}</a></li>
-                                       
+                                    <li><a href="{% url 'home_page' %}">{% trans 'Homepage' %}</a></li>     
                                     
-                                    <li><a href="{% url 'contact_page' %}">{% trans 'Contact us' %}</a></li>
+                                    <li><a href="{% url 'service_page' %}">{% trans 'Services' %}</a></li>
+                                    
+                                    <li><a href="{% url 'contact_page' %}">{% trans 'Contact us' %}</a></li>                                  
                                   
-                                  
-                                    <li><a href="{% url 'blog_page' %}">{% trans 'Blog' %}</a></li>
+                                    <li><a href="{% url 'blog_page' %}">{% trans 'Blogs' %}</a></li>
+
+                                    <li><a href="{% url 'post_page' %}">{% trans 'Posts' %}</a></li>
 
                                     
                                     {% if user.is_authenticated %}
                                     
                                     <li><a href=""></a></li>
                                     <li class="menu-item-has-children">
-                                        <a href="javascript:void(0);">Welcome, {{user.username |title}}!</a>
+                                        <a href="javascript:void(0);">{% trans 'Welcome' %}, {{user.username}}!</a>
                                         <ul class="axil-submenu">
-                                            <li><a href="{% url 'blog_personal' %}">{% trans 'My Blogs' %}</a></li>
-                                            <li><a href="{% url 'addblog' %}">{% trans 'Add Blog' %}</a></li>
+                                            <li><a href="{% url 'profile' request.user %}">{% trans 'Profile' %}</a></li>
+                                            <li><a href="{% url 'my_posts' request.user.username %}">{% trans 'My Posts' %}</a></li>
+                                            <li><a href="{% url 'create_post' %}">{% trans 'Share Post' %}</a></li>
                                             <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
                                         </ul>
                                     </li>

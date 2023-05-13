@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load i18n %}
+{% block content %}
+<a href="#main-wrapper" id="backto-top" class="back-to-top">
+        <i class="far fa-angle-double-up"></i>
+    </a>
+
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+
+    <div class="my_switcher d-none d-lg-block">
+        <ul>
+            <li title="Light Mode">
+                <a href="javascript:void(0)" class="setColor light" data-theme="light">
+                    <i class="fal fa-lightbulb-on"></i>
+                </a>
+            </li>
+            <li title="Dark Mode">
+                <a href="javascript:void(0)" class="setColor dark" data-theme="dark">
+                    <i class="fas fa-moon"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="main-wrapper" class="main-wrapper">
+        <!--=====================================-->
+        <!--=       Breadcrumb Area Start       =-->
+        <!--=====================================-->
+        <div class="breadcrum-area breadcrumb-banner">
+            <div class="container">
+                <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+                    <h1 class="title h2">{% trans 'Posts' %}</h1>
+                </div>
+                <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
+                    <img class="paralax-image" src={% static "assets/media/banner/banner-thumb-1.png" %} alt="Illustration">
+                </div>
+            </div>
+            <ul class="shape-group-8 list-unstyled">
+                <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100">
+                    <img src={% static "assets/media/others/bubble-9.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200">
+                    <img src={% static "assets/media/others/bubble-20.png" %} alt="Bubble">
+                </li>
+            </ul>
+        </div>
+        <!--=====================================-->
+        <!--=       Projects  Area Start        =-->
+        <!--=====================================-->
+        <section class="section section-padding customer-review-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="section-heading heading-left">
+                            <h2 class="title">{% trans 'Here you can see the posts shared by the users of our page.' %}</h2>
+                            <p></p>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    {% for post in posts %}
+                    
+                    <a href="{% url 'post_detail' post.slug %}" class="col-lg-4">
+                        <div class="testimonial-grid">
+                            <span class="social-media">{{post.created_at | date:"d/m/Y" }}</span>
+                            <p>“{{post.title}}”</p>
+                            <div class="author-info">
+                                <div class="thumb">
+                                    <img src={{post.author.avatar.url}} style="width:65px;height:65px;" alt="Google Review">
+                                </div>
+                                <div class="content">
+                                    <span class="name">{{post.author.username}}</span>
+                                    <span class="designation">{{post.author.first_name}} {{post.author.last_name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                
+                    {% endfor %}
+            </div>
+        </section>
+       
+        <!--=====================================-->
+        <!--=     Call To Action Area Start     =-->
+        <!--=====================================-->
+
+        {% endblock  %}
+
+        

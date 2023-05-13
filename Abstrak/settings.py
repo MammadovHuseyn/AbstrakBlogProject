@@ -33,8 +33,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # My apps
     'core',
     'account',
+    'api',
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,10 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'ckeditor',
     'taggit',
     'mathfilters',
-    'ckeditor',
     'social_django',
+    'django_celery_beat',
+    'rest_framework',
+    'rosetta',
     
 ]
 
@@ -78,6 +85,7 @@ TEMPLATES = [
                 'core.context_processor.context_processor.settings',
                 'social_django.context_processors.backends', 
                 'social_django.context_processors.login_redirect', 
+                
             ],
         },
     },
@@ -201,3 +209,47 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+
+
+# Celery settings
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Baku'
+
+#Send email 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'huseynpsn@gmail.com'
+EMAIL_HOST_PASSWORD = 'bgzzzsdbhxxsfyql'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+#REST settings
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
+
+###CK EDITOR settings
+CKEDITOR_CONFIGS = {
+    'default': {
+        
+        'height': 300,
+        'width': 1185,
+        'style' : 'resize:none;',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Image', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink' , 'photo'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}

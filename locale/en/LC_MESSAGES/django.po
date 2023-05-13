@@ -8,44 +8,184 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 06:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-05-13 14:41+0000\n"
+"PO-Revision-Date: 2023-04-30 15:24+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: templates/partials/footer.html:121 templates/partials/header.html:31
+#: core/templates/blog/index-1.html:39
+msgid "Build beautiful website & mobile apps."
+msgstr ""
+
+#: core/templates/blog/index-1.html:40 core/templates/blog/index-1.html:133
+msgid ""
+"ABSTRAK GROUP has been serving its valuable clients since 2018 with digital "
+"marketing solutions, website and mobile application development service. "
+"Having a customer base of more than 150 in a short period of time is another "
+"proof of the high appreciation of the company's services by customers."
+msgstr ""
+
+#: core/templates/blog/index-1.html:41
+msgid "Get Started"
+msgstr ""
+
+#: core/templates/blog/index-1.html:95
+msgid "What We Can Do For You"
+msgstr ""
+
+#: core/templates/blog/index-1.html:96
+msgid "Services we can help you with"
+msgstr ""
+
+#: core/templates/blog/index-1.html:97
+msgid ""
+"Our different and high-quality services have allowed us to get the desired "
+"results by always fully meeting the wishes and demands of our customers."
+msgstr ""
+
+#: core/templates/blog/index-1.html:108
+#, fuzzy
+#| msgid "Find us here"
+msgid "Find out more"
+msgstr "Find us here"
+
+#: core/templates/blog/index-1.html:131
+msgid "WELCOME TO ABSTRAK GROUP DIGITAL MARKETING AGENCY"
+msgstr ""
+
+#: core/templates/blog/index-1.html:132
+msgid "SITE DEVELOPMENT SMM SERVICE AT ABSTRAK GROUP"
+msgstr ""
+
+#: core/templates/blog/index-1.html:161
+msgid "Our Recent <br>Blogs."
+msgstr ""
+
+#: core/templates/blog/index-1.html:198
+msgid "About Us"
+msgstr ""
+
+#: core/templates/blog/index-1.html:205
+msgid "Address"
+msgstr ""
+
+#: core/templates/blog/index-1.html:209
+msgid "Phone-1"
+msgstr ""
+
+#: core/templates/blog/index-1.html:213
+msgid "Phone-2"
+msgstr ""
+
+#: core/templates/blog/index-1.html:221
+msgid "Get in touch!"
+msgstr ""
+
+#: core/templates/blog/index-1.html:223
+msgid "Subscribe us to inform last news!"
+msgstr ""
+
+#: core/templates/blog/index-1.html:227
+msgid "Subscribe"
+msgstr ""
+
+#: core/templates/blog/single-blog.html:13 templates/partials/footer.html:63
+#: templates/partials/header.html:31
 msgid "Homepage"
 msgstr "Homepage"
 
-#: templates/partials/footer.html:122 templates/partials/header.html:34
-msgid "Contact us"
-msgstr "Contact us"
-
-#: templates/partials/footer.html:123 templates/partials/header.html:37
+#: core/templates/blog/single-blog.html:14
 msgid "Blog"
 msgstr "Blog"
 
-#: templates/partials/footer.html:131 templates/partials/header.html:46
-msgid "My Blogs"
+#: core/templates/blog/single-blog.html:61
+msgid "Comments"
+msgstr ""
+
+#: core/templates/blog/single-blog.html:88
+msgid "Leave a comment"
+msgstr ""
+
+#: core/templates/blog/single-blog.html:94
+msgid "Enter Comment"
+msgstr ""
+
+#: core/templates/blog/single-blog.html:116
+#, fuzzy
+#| msgid "My Blogs"
+msgid "Recent Blogs"
 msgstr "My Blogs"
 
-#: templates/partials/footer.html:132 templates/partials/header.html:47
+#: core/templates/blog/single-blog.html:143
+msgid "Related Blogs"
+msgstr ""
+
+#: core/templates/blog/single-blog.html:166
+msgid "Learn more"
+msgstr ""
+
+#: templates/partials/footer.html:64 templates/partials/header.html:35
+msgid "Contact us"
+msgstr "Contact us"
+
+#: templates/partials/footer.html:65 templates/partials/header.html:37
+msgid "Blogs"
+msgstr "Blog"
+
+#: templates/partials/footer.html:66 templates/partials/header.html:39
+msgid "Posts"
+msgstr "Posts"
+
+#: templates/partials/footer.html:72 templates/partials/header.html:46
+msgid "Welcome"
+msgstr "Welcome"
+
+#: templates/partials/footer.html:74 templates/partials/header.html:49
+msgid "My Posts"
+msgstr "My Posts"
+
+#: templates/partials/footer.html:75
 msgid "Add Blog"
 msgstr "Add Blog"
 
-#: templates/partials/footer.html:133 templates/partials/header.html:48
+#: templates/partials/footer.html:76 templates/partials/header.html:51
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/partials/footer.html:139 templates/partials/header.html:52
+#: templates/partials/footer.html:82 templates/partials/header.html:55
 msgid "Login"
 msgstr "Login"
 
-#: templates/partials/footer.html:140 templates/partials/header.html:53
+#: templates/partials/footer.html:83 templates/partials/header.html:56
 msgid "Register"
 msgstr "Register"
+
+#: templates/partials/footer.html:92
+msgid "Contact Information"
+msgstr "Contact Information"
+
+#: templates/partials/footer.html:96
+msgid "We're Available 24/7. Call Now."
+msgstr "We're Available 24/7. Call Now."
+
+#: templates/partials/footer.html:104
+msgid "Find us here"
+msgstr "Find us here"
+
+#: templates/partials/header.html:33
+msgid "Services"
+msgstr ""
+
+#: templates/partials/header.html:48
+msgid "Profile"
+msgstr ""
+
+#: templates/partials/header.html:50
+msgid "Share Post"
+msgstr "Share Post"

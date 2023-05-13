@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <a href="#main-wrapper" id="backto-top" class="back-to-top">
+        <i class="far fa-angle-double-up"></i>
+    </a>
+
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+
+    <div class="my_switcher d-none d-lg-block">
+        <ul>
+            <li title="Light Mode">
+                <a href="javascript:void(0)" class="setColor light" data-theme="light">
+                    <i class="fal fa-lightbulb-on"></i>
+                </a>
+            </li>
+            <li title="Dark Mode">
+                <a href="javascript:void(0)" class="setColor dark" data-theme="dark">
+                    <i class="fas fa-moon"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="main-wrapper" class="main-wrapper">
+
+        <!--=====================================-->
+        <!--=        Banner Area Start         =-->
+        <!--=====================================-->
+        <section class="banner banner-style-1">
+            <div class="container">
+                <div class="row align-items-end align-items-xl-start">
+                    <div class="col-lg-6">
+                        <div class="banner-content" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="100">
+                            <h1 class="title">{% trans 'Build beautiful website & mobile apps.' %}</h1>
+                            <span class="subtitle">{% trans "ABSTRAK GROUP has been serving its valuable clients since 2018 with digital marketing solutions, website and mobile application development service. Having a customer base of more than 150 in a short period of time is another proof of the high appreciation of the company's services by customers." %}</span>
+                            <a href="{% url 'contact_page' %}" class="axil-btn btn-fill-primary btn-large">{% trans 'Get Started' %}</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-thumbnail">
+                            <div class="large-thumb" data-sal="zoom-in" data-sal-duration="800" data-sal-delay="300">
+                                <img src={% static "assets/media/banner/window.png" %} alt="Laptop">
+                            </div>
+                            <div class="large-thumb-2" data-sal="slide-left" data-sal-duration="800" data-sal-delay="800">
+                                <img src={% static "assets/media/banner/laptop-poses.png" %} alt="Laptop">
+                            </div>
+                            <ul class="list-unstyled shape-group">
+                                <li class="shape shape-1" data-sal="slide-left" data-sal-duration="500" data-sal-delay="800">
+                                    <img src={% static "assets/media/banner/chat-group.png" %} alt="chat">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-unstyled shape-group-21">
+                <li class="shape shape-1" data-sal="slide-down" data-sal-duration="500" data-sal-delay="100">
+                    <img src={% static "assets/media/others/bubble-39.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-2" data-sal="zoom-in" data-sal-duration="800" data-sal-delay="500">
+                    <img src={% static "assets/media/others/bubble-38.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-3" data-sal="slide-left" data-sal-duration="500" data-sal-delay="700">
+                    <img src={% static "assets/media/others/bubble-14.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-4" data-sal="slide-left" data-sal-duration="500" data-sal-delay="700">
+                    <img src={% static "assets/media/others/bubble-14.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-5" data-sal="slide-left" data-sal-duration="500" data-sal-delay="700">
+                    <img src={% static "assets/media/others/bubble-14.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-6" data-sal="slide-left" data-sal-duration="500" data-sal-delay="700">
+                    <img src={% static "assets/media/others/bubble-40.png" %} alt="Bubble">
+                </li>
+                <li class="shape shape-7" data-sal="slide-left" data-sal-duration="500" data-sal-delay="700">
+                    <img src={% static "assets/media/others/bubble-41.png" %} alt="Bubble">
+                </li>
+            </ul>
+        </section>
+
+
+
+
+        <!--=====================================-->
+        <!--=        Service Area Start         =-->
+        <!--=====================================-->
+        <section class="section section-padding-2 bg-color-dark">
+            <div class="container">
+                <div class="section-heading heading-light-left">
+                    <span class="subtitle">{% trans 'What We Can Do For You' %}</span>
+                    <h2 class="title">{% trans 'Services we can help you with' %}</h2>
+                    <p class="opacity-50">{% trans "Our different and high-quality services have allowed us to get the desired results by always fully meeting the wishes and demands of our customers." %}</p>
+                </div>
+                <div class="row">
+                    {% for service in services %}
+                    <div class="col-xl-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
+                        <div class="services-grid active">
+                            <div class="thumbnail">
+                                <img src={{service.image.url}} alt="icon">
+                            </div>
+                            <div class="content">
+                                <h5 class="title"> <a href="{% url 'service_detail' service.slug %}">{{service.title}}</a></h5>
+                                <a href="{% url 'service_detail' service.slug %}" class="more-btn">{% trans 'Find out more' %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <ul class="list-unstyled shape-group-10">
+                <li class="shape shape-1"><img src={% static "assets/media/others/line-9.png" %} alt="Circle"></li>
+                <li class="shape shape-2"><img src={% static "assets/media/others/bubble-42.png" %} alt="Circle"></li>
+                <li class="shape shape-3"><img src={% static "assets/media/others/bubble-43.png" %} alt="Circle"></li>
+            </ul>
+        </section>
+
+        <!--=====================================-->
+        <!--=        About Area Start         =-->
+        <!--=====================================-->
+        <section class="section section-padding-equal bg-color-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-sal="slide-up" data-sal-duration="800">
+                        <div class="about-us">
+                            <div class="section-heading heading-left mb-0">
+                                <span class="subtitle">{% trans 'WELCOME TO ABSTRAK GROUP DIGITAL MARKETING AGENCY' %}</span>
+                                <h2 class="title mb--40">{% trans 'SITE DEVELOPMENT SMM SERVICE AT ABSTRAK GROUP' %}</h2>
+                                <p>{% trans "ABSTRAK GROUP has been serving its valuable clients since 2018 with digital marketing solutions, website and mobile application development service. Having a customer base of more than 150 in a short period of time is another proof of the high appreciation of the company's services by customers." %}</p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-thumbnail">
+                            <div class="large-thumb-2" data-sal="slide-left" data-sal-duration="800" data-sal-delay="800">
+                                <img src={% static "assets/media/banner/laptop-poses.png" %} alt="Laptop">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <ul class="shape-group-6 list-unstyled">
+                <li class="shape shape-1"><img src={% static "assets/media/others/bubble-7.png" %} alt="Bubble"></li>
+                <li class="shape shape-2"><img src={% static "assets/media/others/line-4.png" %} alt="line"></li>
+                <li class="shape shape-3"><img src={% static "assets/media/others/line-5.png" %} alt="line"></li>
+            </ul>
+        </section>
+        <!--=====================================-->
+        <!--=        Project Area Start         =-->
+        <!--=====================================-->
+        {% if blogs %}
+        <section class="section section-padding-2 bg-color-light">
+            <div class="container">
+                <div class="section-heading heading-left">
+                    <h2 class="title">{% trans 'Our Recent <br>Blogs.' %}</h2>
+                </div>
+                <div class="axil-isotope-wrapper">
+                    <div class="row row-35 isotope-list">
+                        {% for blog in blogs  %}
+                        <div class="col-md-6 project branding">
+                            <div class="project-grid">
+                                <div class="thumbnail">
+                                    <a href={% url 'blog_detail' blog.slug %}>
+                                        <img src="{{blog.image.url}}" alt="project">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h4 class="title"><a href={% url 'blog_detail' blog.slug %}>{{blog.title}}</a></h4>
+                                    <span class="subtitle">{{blog.description|safe|truncatechars_html:50}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}                    
+                    </div>
+                </div>
+            </div>
+            <ul class="shape-group-7 list-unstyled">
+                <li class="shape shape-1"><img src="{% static 'assets/media/others/circle-2.png' %}" alt="circle"></li>
+                <li class="shape shape-2"><img src="{% static 'assets/media/others/bubble-2.png' %}" alt="Line"></li>
+                <li class="shape shape-3"><img src="{% static 'assets/media/others/bubble-1.png' %}" alt="Line"></li>
+            </ul>
+        </section>
+        {% endif %}
+        <section class="section-padding bg-color-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6" data-sal="slide-up" data-sal-duration="1000">
+                        <div class="contact-address mb--30">
+                           
+                            <div class="address-list">
+                                <div class="address">
+                                    <h2 class="title">{% trans 'About Us' %}</h2>
+                                </div>
+                                <div class="address">
+                                    <h6 class="title">Mail</h6>
+                                    <p><a href="mailto:example@gmail.com">{{settings.email}}</a></p>
+                                </div>
+                                <div class="address">
+                                    <h6 class="title">{% trans 'Address' %}</h6>
+                                    <p>{{settings.address}}</p>
+                                </div>
+                                <div class="address">
+                                    <h6 class="title">{% trans 'Phone-1' %}</h6>
+                                    <p><a href="tel:+0123456789">{{settings.phone1}}</a></p>
+                                </div>
+                                <div class="address">
+                                    <h6 class="title">{% trans 'Phone-2' %}</h6>
+                                    <p><a href="tel:+0123456789">{{settings.phone2}}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="200">
+                        <div class="contact-form-box mb--30">
+                            <h3 class="title">{% trans 'Get in touch!' %}</h3>
+                            <div class="footer-newsletter">
+                                <p>{% trans 'Subscribe us to inform last news!' %}</p>
+                                <form>
+                                    <div class="input-group">
+                                        <input id = "emailinput" type="email" class="form-control" placeholder="Email address">
+                                        <button id = "emailbutton" class="subscribe-btn" type="submit">{% trans 'Subscribe' %}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script>
+            SubsciberLogic = {
+                emailManager(email) {
+                    fetch('/api/subscribe/', {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            'email': email,
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            subscribeModalLongTitle = document.getElementById('subscribeModalLongTitle');
+                            emailinput.value = '';
+                        });
+                }
+            }
+        
+            emailbutton = document.getElementById('emailbutton')
+            emailinput = document.getElementById('emailinput')
+        
+            emailbutton.onclick = function (e) {
+                e.preventDefault();
+                email = emailinput.value;
+                SubsciberLogic.emailManager(email);
+            }
+        
+        </script>
+        {% endblock  %}

@@ -8,48 +8,193 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 06:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-05-13 14:41+0000\n"
+"PO-Revision-Date: 2023-05-13 14:47+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: templates/partials/footer.html:121 templates/partials/header.html:31
+#: core/templates/blog/index-1.html:39
+msgid "Build beautiful website & mobile apps."
+msgstr "Gözəl veb sayt & mobil proqramları yaradın."
+
+#: core/templates/blog/index-1.html:40 core/templates/blog/index-1.html:133
+msgid ""
+"ABSTRAK GROUP has been serving its valuable clients since 2018 with digital "
+"marketing solutions, website and mobile application development service. "
+"Having a customer base of more than 150 in a short period of time is another"
+" proof of the high appreciation of the company's services by customers."
+msgstr ""
+"ABSTRAK GROUP 2018-ci ildən bəri öz dəyərli müştərilərinə rəqəmsal marketinq"
+" həlləri, vebsayt və mobil proqramların hazırlanması xidməti ilə xidmət "
+"göstərir. Qısa müddət ərzində 150-dən çox müştəri bazasının olması şirkətin "
+"xidmətlərinin müştərilər tərəfindən yüksək qiymətləndirilməsinin daha bir "
+"sübutudur."
+
+#: core/templates/blog/index-1.html:41
+msgid "Get Started"
+msgstr "Başlayaq"
+
+#: core/templates/blog/index-1.html:95
+msgid "What We Can Do For You"
+msgstr "Sizin üçün nə edə bilərik.."
+
+#: core/templates/blog/index-1.html:96
+msgid "Services we can help you with"
+msgstr "Sizə kömək olacaq xidmətlərimiz"
+
+#: core/templates/blog/index-1.html:97
+msgid ""
+"Our different and high-quality services have allowed us to get the desired "
+"results by always fully meeting the wishes and demands of our customers."
+msgstr ""
+"Fərqli və yüksək keyfiyyətli xidmətlərimiz müştərilərimizin istək və "
+"tələblərinə hər zaman tam cavab verməklə arzuladığımız nəticələri əldə "
+"etməyə imkan verib."
+
+#: core/templates/blog/index-1.html:108
+msgid "Find out more"
+msgstr "Ətraflı Məlumat"
+
+#: core/templates/blog/index-1.html:131
+msgid "WELCOME TO ABSTRAK GROUP DIGITAL MARKETING AGENCY"
+msgstr "ABSTRAK GROUP DİJİTAL MARKETİNQ AGENTLİYİNƏ XOŞ OLSUN"
+
+#: core/templates/blog/index-1.html:132
+msgid "SITE DEVELOPMENT SMM SERVICE AT ABSTRAK GROUP"
+msgstr "ABSTRAK GROUP-DA SAYTLARIN İŞLƏNDİRİLMƏSİ SMM XİDMƏTİ"
+
+#: core/templates/blog/index-1.html:161
+msgid "Our Recent <br>Blogs."
+msgstr "Bizim ən son <br>Bloqlarımız."
+
+#: core/templates/blog/index-1.html:198
+msgid "About Us"
+msgstr "Haqqımızda"
+
+#: core/templates/blog/index-1.html:205
+msgid "Address"
+msgstr "Ünvan"
+
+#: core/templates/blog/index-1.html:209
+msgid "Phone-1"
+msgstr "Nömrə 1"
+
+#: core/templates/blog/index-1.html:213
+msgid "Phone-2"
+msgstr "Nömrə 2"
+
+#: core/templates/blog/index-1.html:221
+msgid "Get in touch!"
+msgstr "Əlaqədə olaq!"
+
+#: core/templates/blog/index-1.html:223
+msgid "Subscribe us to inform last news!"
+msgstr "Ən son xəbərlər üçün bizi izləyin!"
+
+#: core/templates/blog/index-1.html:227
+msgid "Subscribe"
+msgstr "Abunə ol"
+
+#: core/templates/blog/single-blog.html:13 templates/partials/footer.html:63
+#: templates/partials/header.html:31
 msgid "Homepage"
 msgstr "Ana səhifə"
 
-#: templates/partials/footer.html:122 templates/partials/header.html:34
+#: core/templates/blog/single-blog.html:14
+msgid "Blog"
+msgstr "Bloq"
+
+#: core/templates/blog/single-blog.html:61
+msgid "Comments"
+msgstr "Yorumlar"
+
+#: core/templates/blog/single-blog.html:88
+msgid "Leave a comment"
+msgstr "Bir yorum yaz"
+
+#: core/templates/blog/single-blog.html:94
+msgid "Enter Comment"
+msgstr "Yorum yaz"
+
+#: core/templates/blog/single-blog.html:116
+#, fuzzy
+#| msgid "My Blogs"
+msgid "Recent Blogs"
+msgstr "Mənim Bloqlarım"
+
+#: core/templates/blog/single-blog.html:143
+msgid "Related Blogs"
+msgstr "Əlaqəli Bloqlar"
+
+#: core/templates/blog/single-blog.html:166
+msgid "Learn more"
+msgstr "Daha çox"
+
+#: templates/partials/footer.html:64 templates/partials/header.html:35
 msgid "Contact us"
 msgstr "Əlaqə"
 
-#: templates/partials/footer.html:123 templates/partials/header.html:37
-msgid "Blog"
+#: templates/partials/footer.html:65 templates/partials/header.html:37
+msgid "Blogs"
 msgstr "Bloqlar"
 
-#: templates/partials/footer.html:131 templates/partials/header.html:46
-#, fuzzy
-#| msgid "Blog"
-msgid "My Blogs"
-msgstr "Mənim Bloqlarım"
+#: templates/partials/footer.html:66 templates/partials/header.html:39
+msgid "Posts"
+msgstr "Postlar"
 
-#: templates/partials/footer.html:132 templates/partials/header.html:47
-#, fuzzy
-#| msgid "Blog"
+#: templates/partials/footer.html:72 templates/partials/header.html:46
+msgid "Welcome"
+msgstr "Xoş Gəldin"
+
+#: templates/partials/footer.html:74 templates/partials/header.html:49
+msgid "My Posts"
+msgstr "Mənim Postlarım"
+
+#: templates/partials/footer.html:75
 msgid "Add Blog"
 msgstr "Bloq əlavə et"
 
-#: templates/partials/footer.html:133 templates/partials/header.html:48
+#: templates/partials/footer.html:76 templates/partials/header.html:51
 msgid "Logout"
 msgstr "Çıxış"
 
-#: templates/partials/footer.html:139 templates/partials/header.html:52
+#: templates/partials/footer.html:82 templates/partials/header.html:55
 msgid "Login"
 msgstr "Daxil ol"
 
-#: templates/partials/footer.html:140 templates/partials/header.html:53
+#: templates/partials/footer.html:83 templates/partials/header.html:56
 msgid "Register"
 msgstr "Qeydiyyatdan keç"
+
+#: templates/partials/footer.html:92
+msgid "Contact Information"
+msgstr "Əlaqə Məlumatları"
+
+#: templates/partials/footer.html:96
+msgid "We're Available 24/7. Call Now."
+msgstr "24/7 işləyirik. İndi əlaqə saxla."
+
+#: templates/partials/footer.html:104
+msgid "Find us here"
+msgstr "Bizi burada tapa bilərsiniz"
+
+#: templates/partials/header.html:33
+msgid "Services"
+msgstr "Xidmətlər"
+
+#: templates/partials/header.html:48
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/partials/header.html:50
+msgid "Share Post"
+msgstr "Post Paylaş"
+
+#~ msgid "More"
+#~ msgstr "Daha çox"

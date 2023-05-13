@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/vendor/register.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
     <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.css' %}">
 </head>
 
@@ -35,11 +36,17 @@
       <div class="input-box button">
         <input type="Submit" value="Login Now">
       </div>
-      <a class="" href="{% url 'social:begin' 'google-oauth2' %}">
-        <i class="fa fa-google" aria-hidden="true"></i> Log in with Google
-
+      <div>
+      <a class="fa-brands fa-google fa-2x btn btn-gray" href="{% url 'social:begin' 'google-oauth2' %}">        
       </a>
-      <a href="{% url 'social:begin' 'facebook' %}"> Log in with Facebook </a>
+      <a href="{% url 'social:begin' 'google-oauth2' %}" style="color: black;text-decoration: none;">Sign with Google</a>
+    </div>
+
+      <div>
+      <a class="fa-brands fa-facebook fa-2x btn btn-gray" href="{% url 'social:begin' 'facebook' %}">         
+    </a>
+    <a href="{% url 'social:begin' 'facebook' %}" style="color: black;text-decoration: none;">Sign with Facebook</a>
+  </div>
       </form>
   </div>
 </body>

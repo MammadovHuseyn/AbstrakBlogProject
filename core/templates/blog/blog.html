@@ -34,24 +34,21 @@
                             <h3 class="title"><a href="">{{blog.title}}</a></h3>
                             <div class="author">
                                 <div class="author-thumb">
-                                    <img class = 'rounded-circle border border-dark' src="{{blog.author.avatar.url}}" width = '80px' alt="Blog Author">
+                                    <img class = 'rounded-circle border border-light' src="{{blog.author.avatar.url}}" width = '80px' alt="Blog Author">
                                 </div>
                                 <div class="info">
-                                    <h6 class="author-name">{{blog.author.username}}</h6>
+                                    <h6 class="author-name">ABSTRAK</h6>
                                     <ul class="blog-meta list-unstyled">
                                         <li>{{blog.created_at|timesince}}</li>
-                                        <li>9 min to read</li>
+                                        <li>{{blog.reading_time}} min to read</li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="post-thumbnail">                                
-                                <a href="{% url 'blog_detail' blog.category.slug blog.slug %}"><img src="{{blog.image.url}}" alt="Blog"></a>
+                                <a href="{% url 'blog_detail' blog.slug %}"><img src="{{blog.image.url}}" alt="Blog"></a>
                             </div>                            
                             <p>{{blog.description|safe|truncatechars_html:100}}</p>                                                         
-                            <a href="{% url 'blog_detail' blog.category.slug blog.slug %}" class="axil-btn btn-borderd btn-large">Read More</a>
-                            {% if blog.author == request.user %}
-                            <a href="{% url 'update_blog' blog.slug %}" class="axil-btn btn-borderd btn-large">Edit</a>
-                            {% endif %}
+                            <a href="{% url 'blog_detail' blog.slug %}" class="axil-btn btn-borderd btn-large">Read More</a>
                         </div>
                         {% empty %}
                             <h1> There is no blog </h1>
@@ -72,6 +69,7 @@
                        
 
                         {% comment %} PAGINATOR {% endcomment %}
+                        {% if blog_count != 0 %}
                         <div class="pagination">
                             <span class="step-links">
                                 <ul>
@@ -99,39 +97,61 @@
                             </ul>
                             </span>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="col-lg-4">
                         <div class="axil-sidebar">
                             <div class="widget widget-search">
                                 <h4 class="widget-title">Search</h4>
                                 <form action="{% url 'blog_page' %}" class="blog-search" >                                    
-                                    <input type="text" placeholder="Search…" name = "search">
-                                    <button type='submit' class="search-button"><i class="fal fa-search"></i></button>
+                                    <input type="text" placeholder="Search…" name = "search" class = "mb-3" ,{% if search_text %} value =  {{search_text}} {% endif %}>
+                                    
+                                    <select style="height: 35px;" name="cat"
+                                    class="d-inline-block form-select rounded-0 form-select-sm mb-3 "
+                                    aria-label=".form-select-sm example">
+
+                                    <option value="">{% if category %} {{category}} {% else %} Categories {% endif %}</option>
+                                    {% if category %}
+
+                                    {% for cat in categories %}
+                                        {% if cat != category %}
+                                        <option value="{{ cat.id }}">{{ cat.title }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% else %}
+
+                                        {% for cat in categories %}                                   
+                                        <option value="{{ cat.id }}">{{ cat.title }}</option>                                 
+                                        {% endfor %}
+
+                                    {% endif %}
+                                     </select>
+                                     
+                                     <div>
+                                        <label class="text-black"><b>From:</b> </label>
+                                        <input id="start" value="{{ start_date }}" style="width: 250px; height: 30px; margin-left:8px; margin-bottom:10px" type="date" name="startdate"
+                                            placeholder="startdate">
+                                    </div>
+                                    <div>
+                                        <label class="text-black"><b>Till:</b> </label>
+                                        <input id="end" value="{{ end_date }}" style="width: 250px; height: 30px; margin-left:25px;" type="date" name="enddate"
+                                            placeholder="enddate">
+                                    </div>
+                                     <button class="btn btn-primary mt-5" type="submit">Search</button>
                                 </form>
                             </div>
-                            <div class="widget widget-categories">
+                            {% comment %} <div class="widget widget-categories">
                                 <h4 class="widget-title">Categories</h4>
                                 {% for category in categories %}
                                 <ul class="category-list list-unstyled">
                                     <li><a class="current" href="{% url 'blog_category' category.slug %}">{{category.title|title}}</a></li>                                    
                                 </ul>
                                 {% endfor %}
-                            </div>
-                            <div class="widget widge-social-share">
-                                <div class="blog-share">
-                                    <h5 class="title">Follow:</h5>
-                                    <ul class="social-list list-unstyled">
-                                        <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a></li>
-                                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            </div> {% endcomment %}
+                       
                             <div class="widget widget-recent-post">
-                                <h4 class="widget-title">Recent post</h4><hr>
+                                <h4 class="widget-title">Recent Blogs</h4><hr>
                                 <div class="post-list-wrap">
                                     {% for blog in recentblogs  %}
                                     <div class="single-post">                                        
@@ -145,58 +165,37 @@
                                    
                                 </div>
                             </div>
-                            <div class="widget widget-banner-ad">
-                                <a href="#">
-                                    <img src="{% static 'assets/media/banner/widget-banner.png' %}" alt="banner">
-                                </a>
-                            </div>
+                       
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!--=====================================-->
-        <!--=     Call To Action Area Start     =-->
-        <!--=====================================-->
-        <section class="section call-to-action-area">
-            <div class="container">
-                <div class="call-to-action">
-                    <div class="section-heading heading-light">
-                        <span class="subtitle">Let's Work Together</span>
-                        <h2 class="title">Need a successful project?</h2>
-                        <a href="contact.html" class="axil-btn btn-large btn-fill-white">Estimate Project</a>
-                    </div>
-                    <div class="thumbnail">
-                        <div class="larg-thumb" data-sal="zoom-in" data-sal-duration="600" data-sal-delay="100">
-                            <img class="paralax-image" src="{% static 'assets/media/others/chat-group.png' %}" alt="Chat">
-                        </div>
-                        <ul class="list-unstyled small-thumb">
-                            <li class="shape shape-1" data-sal="slide-right" data-sal-duration="800" data-sal-delay="400">
-                                <img class="paralax-image" src="{% static 'assets/media/others/laptop-poses.png' %}" alt="Laptop">
-                            </li>
-                            <li class="shape shape-2" data-sal="slide-left" data-sal-duration="800" data-sal-delay="300">
-                                <img class="paralax-image" src="{% static 'assets/media/others/bill-pay.png' %}" alt="Bill">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <ul class="list-unstyled shape-group-9">
-                <li class="shape shape-1"><img src="{% static 'assets/media/others/bubble-12.png' %}" alt="Comments"></li>
-                <li class="shape shape-2"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
-                <li class="shape shape-3"><img src="{% static 'assets/media/others/bubble-13.png' %}" alt="Comments"></li>
-                <li class="shape shape-4"><img src="{% static 'assets/media/others/bubble-14.png' %}" alt="Comments"></li>
-                <li class="shape shape-5"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
-                <li class="shape shape-6"><img src="{% static 'assets/media/others/bubble-15.png' %}" alt="Comments"></li>
-                <li class="shape shape-7"><img src="{% static 'assets/media/others/bubble-16.png' %}" alt="Comments"></li>
-            </ul>
-        </section>
-     
+        </section>  
 
 
 
 
     </div>
+    <script>
+        var startDateInput = document.getElementById("start");
+        var endDateInput = document.getElementById("end");
+    
+        startDateInput.addEventListener("change", function() {
+            if (startDateInput.value !== "") {
+                endDateInput.required = true;
+            } else {
+                endDateInput.required = false;
+            }
+        });
+    
+        endDateInput.addEventListener("change", function() {
+            if (endDateInput.value !== "") {
+                startDateInput.required = true;
+            } else {
+                startDateInput.required = false;
+            }
+        });
+    </script>
 
 
 {% endblock  %}

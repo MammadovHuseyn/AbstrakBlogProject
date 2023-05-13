@@ -1,8 +1,10 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate , login , logout
+from django import forms
+
+from core.tasks import send_welcome_mail
 from .models import CustomUser
 from .forms import RegisterForm , LoginForm
-from django import forms
 # Create your views here.
 
 # def login_page(request):
@@ -29,7 +31,9 @@ def login_page(request):
         user = authenticate(username = username, password = password)
         if user is not None:
             login(request , user)
-            return redirect('home_page')        
+            return redirect('home_page')    
+        else:
+            context['error'] = 'Username or password is incorrect!'
 
     return render(request , 'account/login.html' , context)
 
@@ -47,8 +51,12 @@ def register_page(request):
                 context['error'] = 'Passwords do not match'
                 context['form'] = form            
                 return render(request , 'account/register.html' , context)
+            
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
+            send_welcome_mail(email = user.email , username = f"{user.first_name} {user.last_name}")
 
-            form.save()
             return redirect('login')
         else:
             context['form'] = form
